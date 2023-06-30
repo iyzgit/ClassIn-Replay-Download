@@ -636,7 +636,7 @@ int32_t remux(down_param param)
         av_packet_rescale_ts(pkt, in_stream->time_base, out_stream->time_base);
         pkt->pos = -1;
         if (pkt->dts <= last_dts[pkt->stream_index])
-            continue;
+            pkt->dts = last_dts[pkt->stream_index] + 1;
         last_dts[pkt->stream_index] = pkt->dts;
         lock_down_status.lock();
 
